@@ -409,7 +409,9 @@ var Game = new (function() {
     var $el = $(evt.target).closest('*[data-action]'),
         action = $(evt.target).closest('*[data-action]').attr('data-action'),
         value = $el.attr('data-value');
-    if (action && action != 'tweet') { // hack for allowing a href tapping :P
+    // allow regular hyperlinks to work
+    var isLink = ($el && $el.length && $el[0].nodeName == 'A')? true: false;
+    if (action && !isLink) {
       doAction(action, value);
       return false;
     }
